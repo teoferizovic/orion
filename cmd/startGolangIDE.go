@@ -25,7 +25,7 @@ var startGolangIDECmd = &cobra.Command{
 			fmt.Printf("%s", err)
 		}
 
-		fmt.Println("Command Successfully Executed333")
+		fmt.Println("Command Successfully Executed")
 		output := string(out[:])
 		fmt.Println(output)
 	},
