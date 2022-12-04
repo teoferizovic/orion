@@ -9,6 +9,7 @@ import (
 	"os/exec"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // startGolangIDECmd represents the startGolangIDE command
@@ -19,7 +20,9 @@ var startGolangIDECmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("StartGolangIDE Called")
 
-		out, err := exec.Command("bash", "-c", "cd /home/teo/Downloads/liteide/build/liteide/bin/ && ./liteide").Output()
+		mainCommand := "cd " + fmt.Sprint(viper.Get("IDE_PATH")) + " && ./liteide"
+
+		out, err := exec.Command("bash", "-c", mainCommand).Output()
 
 		if err != nil {
 			fmt.Printf("%s", err)
@@ -33,4 +36,6 @@ var startGolangIDECmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(startGolangIDECmd)
+	viper.SetConfigFile("./.env")
+	viper.ReadInConfig()
 }
